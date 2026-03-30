@@ -1,107 +1,169 @@
-# 🚀 LLM Evaluation & Prompt Optimization System
+# LLM Evaluation & Prompt Optimization System
 
-A **production-ready framework** for evaluating, comparing, and optimizing Large Language Model (LLM) prompt variants at scale.  
-The system supports **bulk prompt testing (200+ variants)**, automated metrics, LLM-as-judge scoring, and rich analytics for data-driven prompt engineering.
-
----
-
-## ✨ Key Features
-
-- 📥 Bulk CSV prompt import (200+ variants)
-- ⚡ Concurrent batch evaluation
-- 📊 Advanced visual analytics (Radar, Scatter, Heatmap, Box plots)
-- 🧠 LLM-as-judge scoring (faithfulness, clarity, usefulness)
-- 📈 Batch comparison & leaderboard
-- 💾 SQLite experiment tracking
-- 📤 Export evaluation results to CSV
-- 🔬 Per-variant deep analysis
-- 📉 Score spread & discriminative insights
+A scalable framework for evaluating, comparing, and optimizing Large Language Model (LLM) prompt variants.  
+The system supports bulk prompt testing, automated metric computation, LLM-based judging, and interactive analytics for data-driven prompt engineering.
 
 ---
 
-## 🚀 Quick Start
+## Overview
+
+This project enables systematic evaluation of prompt variants by sending them to a local LLM, computing quantitative metrics, and generating a composite score. Results are stored for comparison and visualized through interactive dashboards.
+
+---
+
+## Features
+
+- Bulk CSV prompt import (200+ variants)
+- Parallel batch evaluation
+- LLM-as-judge scoring
+- Composite scoring system
+- SQLite experiment tracking
+- Interactive analytics dashboards
+- Batch comparison and leaderboard
+- CSV export functionality
+- Per-variant deep analysis
+- Score distribution insights
+
+---
+
+## Why This Project
+
+- Eliminates manual prompt testing  
+- Supports large-scale prompt evaluation  
+- Combines NLP metrics with LLM judging  
+- Runs locally without API cost  
+- Parallel execution for faster evaluation  
+- Experiment tracking for reproducibility  
+- Interactive visual analytics  
+- Modular and extensible architecture  
+
+---
+
+## Architecture
+
+```
+User Prompts (CSV / Manual Input)
+            │
+            ▼
+   Batch Evaluation Pipeline
+            │
+            ├── LLM Response Generation
+            ├── Metric Computation
+            ├── LLM Judge Scoring
+            └── Composite Score
+            │
+            ▼
+        SQLite Storage
+            │
+            ▼
+    Analytics Dashboard (Streamlit)
+```
+
+---
+
+## Installation
 
 ```bash
-# Install dependencies
 pip install -r requirements.txt
+```
 
-# Start Ollama
+Start local model:
+
+```bash
 ollama serve
+```
 
-# Pull model
+Pull model:
+
+```bash
 ollama pull llama3
+```
 
-# Run application
+Run application:
+
+```bash
 streamlit run ui/app.py
 ```
 
 ---
 
-## 📂 CSV Import Format
+## Usage
 
-Minimum required column:
+1. Upload prompt CSV  
+2. Select model  
+3. Configure concurrency  
+4. Run evaluation  
+5. Analyze results  
+6. Compare batches  
+7. Export results  
+
+---
+
+## CSV Format
+
+Required column:
 
 | Column | Description |
 |--------|-------------|
-| text | Prompt text (required) |
-| name | Variant name (optional) |
+| text | Prompt text |
+
+Optional columns:
+
+| Column | Description |
+|--------|-------------|
+| name | Variant label |
 | tags | Comma-separated tags |
 
 Example:
 
 ```csv
 name,text,tags
-Simple,"Explain X simply.",beginner
-Expert,"Explain X with examples.",expert
-```
-
-Sample dataset available in:
-```
-sample_data/sample_prompts.csv
+Simple,"Explain AI simply.",basic
+Detailed,"Explain AI with examples.",advanced
 ```
 
 ---
 
-## 🗺️ Application Pages
-
-| Page | Description |
-|------|-------------|
-| Home | Overview dashboard |
-| Prompt Lab | Run evaluations |
-| Batch Analysis | Deep metrics visualization |
-| Compare | Compare two runs |
-| Leaderboard | Top scoring prompts |
-| Analytics | Trends & correlations |
-
----
-
-## 📊 Evaluation Metrics
+## Metrics
 
 | Metric | Range | Description |
 |--------|------|-------------|
 | BLEU | 0–1 | N-gram overlap |
 | ROUGE-L | 0–1 | Sequence similarity |
 | Semantic Similarity | 0–1 | Embedding cosine similarity |
-| Coherence | 0–1 | Structural quality |
-| Faithfulness | 0–1 | LLM judge |
-| Completeness | 0–1 | LLM judge |
-| Clarity | 0–1 | LLM judge |
-| Usefulness | 0–1 | LLM judge |
+| Coherence | 0–1 | Response structure |
+| Faithfulness | 0–1 | LLM judge accuracy |
+| Completeness | 0–1 | Coverage |
+| Clarity | 0–1 | Readability |
+| Usefulness | 0–1 | Practical value |
 | Composite Score | 0–100 | Weighted score |
 
 ---
 
-## ⚙️ Concurrency Settings
+## Composite Score Formula
 
-| Threads | Description |
-|---------|-------------|
-| 1 | Sequential (safe) |
-| 2 | Balanced performance |
-| 4 | Fastest (parallel requests) |
+```
+Composite =
+0.40 * Semantic Similarity +
+0.15 * BLEU +
+0.15 * ROUGE-L +
+0.15 * Coherence +
+0.15 * Faithfulness
+```
 
 ---
 
-## 🏗️ Project Structure
+## Concurrency
+
+| Threads | Description |
+|---------|-------------|
+| 1 | Sequential execution |
+| 2 | Balanced performance |
+| 4 | Parallel execution |
+
+---
+
+## Project Structure
 
 ```
 llm-eval-pro/
@@ -119,59 +181,52 @@ llm-eval-pro/
 
 ---
 
-## 📈 Visualizations
+## Tech Stack
 
-- Radar charts
-- Scatter plots
-- Heatmaps
-- Box plots
-- Score distributions
-- Batch comparisons
-
----
-
-## 🧪 Typical Workflow
-
-1. Upload prompt CSV  
-2. Select model  
-3. Configure concurrency  
-4. Run evaluation  
-5. Analyze metrics  
-6. Compare batches  
-7. Export results  
+- Python  
+- Streamlit  
+- Ollama  
+- Sentence Transformers  
+- Plotly  
+- SQLite  
+- Pandas  
+- NumPy  
+- Scikit-learn  
 
 ---
 
-## 🛠️ Tech Stack
+## Workflow
 
-- Python
-- Streamlit
-- Ollama
-- Sentence Transformers
-- Plotly
-- SQLite
-- Pandas
-- NumPy
-- Scikit-learn
+1. Import prompts  
+2. Run evaluation  
+3. Compute metrics  
+4. Generate composite score  
+5. Store results  
+6. Visualize analytics  
+7. Compare runs  
 
 ---
 
-## 🎯 Use Cases
+## Performance
 
-- Prompt engineering optimization  
-- LLM benchmarking  
-- Research experimentation  
-- A/B prompt testing  
-- Model comparison  
-- Evaluation dashboards  
+- Supports 200+ prompt variants  
+- Parallel execution improves speed  
+- Local inference reduces latency  
+- Bulk database writes  
 
 ---
 
-## 📄 License
-MIT License
+## Future Improvements
+
+- Automatic prompt optimization  
+- Multi-model comparison  
+- REST API support  
+- Cloud deployment  
+- Prompt versioning  
+- Hyperparameter tuning  
 
 ---
 
-## 👩‍💻 Author
+## Author
 
-**Vaishnavi Deshpande**
+Vaishnavi Deshpande

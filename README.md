@@ -1,40 +1,39 @@
-# ⚡ LLM Eval Pro
+# 🚀 LLM Evaluation & Prompt Optimization System
 
-A production-ready system for evaluating and comparing LLM prompt variants at scale —
-supporting **200+ variants** via CSV import, per-variant deep analysis, and full analytics.
+A **production-ready framework** for evaluating, comparing, and optimizing Large Language Model (LLM) prompt variants at scale.  
+The system supports **bulk prompt testing (200+ variants)**, automated metrics, LLM-as-judge scoring, and rich analytics for data-driven prompt engineering.
+
+---
+
+## ✨ Key Features
+
+- 📥 Bulk CSV prompt import (200+ variants)
+- ⚡ Concurrent batch evaluation
+- 📊 Advanced visual analytics (Radar, Scatter, Heatmap, Box plots)
+- 🧠 LLM-as-judge scoring (faithfulness, clarity, usefulness)
+- 📈 Batch comparison & leaderboard
+- 💾 SQLite experiment tracking
+- 📤 Export evaluation results to CSV
+- 🔬 Per-variant deep analysis
+- 📉 Score spread & discriminative insights
 
 ---
 
 ## 🚀 Quick Start
 
 ```bash
-# 1. Install dependencies
+# Install dependencies
 pip install -r requirements.txt
 
-# 2. Start Ollama and pull a model
+# Start Ollama
 ollama serve
+
+# Pull model
 ollama pull llama3
 
-# 3. Launch the app
+# Run application
 streamlit run ui/app.py
 ```
-
----
-
-## ✨ What's New (vs original)
-
-| Feature | Original | Pro |
-|---|---|---|
-| Max variants | 5 (hard-coded) | **Unlimited** (200+ tested) |
-| CSV import | ❌ | ✅ with preview & validation |
-| Per-variant analysis | Tabs only | **Paginated expanders** with inline metrics + progress bars |
-| Batch tracking | ❌ | ✅ SQLite batch runs table |
-| Concurrent evaluation | ❌ | ✅ configurable thread pool |
-| Bulk DB writes | One-by-one | ✅ single transaction |
-| Export results | ❌ | ✅ CSV download per batch |
-| Score insights | Basic | ✅ spread, discriminating metric, strengths |
-| Metric visualization | Radar only | Radar + Box plot + Scatter + Heatmap |
-| Batch Analysis page | ❌ | ✅ full page with all charts |
 
 ---
 
@@ -42,87 +41,137 @@ streamlit run ui/app.py
 
 Minimum required column:
 
-| Column name(s) accepted | Maps to |
-|---|---|
-| `text`, `prompt`, `prompt_text`, `content` | Prompt text (**required**) |
-| `name`, `prompt_name`, `variant_name` | Display label |
-| `tags`, `category` | Tags (comma-separated in cell) |
+| Column | Description |
+|--------|-------------|
+| text | Prompt text (required) |
+| name | Variant name (optional) |
+| tags | Comma-separated tags |
 
-**Example:**
+Example:
+
 ```csv
 name,text,tags
 Simple,"Explain X simply.",beginner
-Expert,"You are an expert. Explain X with examples.",expert
+Expert,"Explain X with examples.",expert
 ```
 
-A sample CSV is included at `sample_data/sample_prompts.csv`.
+Sample dataset available in:
+```
+sample_data/sample_prompts.csv
+```
 
 ---
 
-## 🗺️ Pages
+## 🗺️ Application Pages
 
 | Page | Description |
-|---|---|
-| 🏠 Home (`app.py`) | Stats overview, navigation guide, quick start |
-| 🔬 Prompt Lab | Manual + CSV input, run evaluation, per-variant analysis |
-| 🧪 Batch Analysis | Deep dive into any batch: distribution, heatmap, scatter, all variants |
-| ⚖️ Compare | Side-by-side two runs with diff |
-| 🏆 Leaderboard | Top all-time runs |
-| 📊 Analytics | Trends, correlations, model comparison |
+|------|-------------|
+| Home | Overview dashboard |
+| Prompt Lab | Run evaluations |
+| Batch Analysis | Deep metrics visualization |
+| Compare | Compare two runs |
+| Leaderboard | Top scoring prompts |
+| Analytics | Trends & correlations |
 
 ---
 
-## 🏗️ Architecture
+## 📊 Evaluation Metrics
 
-```
-llm-eval-pro/
-├── ui/
-│   ├── app.py                    # Home dashboard
-│   └── pages/
-│       ├── 01_prompt_lab.py      # Main eval + CSV import
-│       ├── 02_batch_analysis.py  # Per-batch deep analysis ← NEW
-│       ├── 03_compare.py         # Side-by-side comparison
-│       ├── 04_leaderboard.py     # Rankings
-│       └── 05_analytics.py       # Trends & correlations
-├── src/
-│   ├── evaluator/
-│   │   ├── pipeline.py           # Batch eval + variant report
-│   │   ├── metrics.py            # BLEU, ROUGE-L, Semantic, Coherence
-│   │   └── llm_judge.py          # LLM-as-judge scoring
-│   ├── prompt_manager/
-│   │   └── store.py              # SQLite store + CSV import/export
-│   └── models/
-│       └── ollama_connector.py   # Ollama HTTP wrapper
-├── sample_data/
-│   └── sample_prompts.csv        # 20-row sample for testing
-├── data/                         # SQLite DB lives here (auto-created)
-└── requirements.txt
-```
+| Metric | Range | Description |
+|--------|------|-------------|
+| BLEU | 0–1 | N-gram overlap |
+| ROUGE-L | 0–1 | Sequence similarity |
+| Semantic Similarity | 0–1 | Embedding cosine similarity |
+| Coherence | 0–1 | Structural quality |
+| Faithfulness | 0–1 | LLM judge |
+| Completeness | 0–1 | LLM judge |
+| Clarity | 0–1 | LLM judge |
+| Usefulness | 0–1 | LLM judge |
+| Composite Score | 0–100 | Weighted score |
 
 ---
 
 ## ⚙️ Concurrency Settings
 
-In the sidebar:
-- **1 (Sequential)** — safest, works with any local Ollama setup
-- **2** — 2× faster, light on RAM
-- **4** — fastest, needs Ollama able to handle parallel requests
-
-For 200+ variants without a judge, sequential at ~2s/variant ≈ ~7 minutes.
-With concurrency=4, same batch ≈ ~2 minutes.
+| Threads | Description |
+|---------|-------------|
+| 1 | Sequential (safe) |
+| 2 | Balanced performance |
+| 4 | Fastest (parallel requests) |
 
 ---
 
-## 📊 Metrics
+## 🏗️ Project Structure
 
-| Metric | Range | Description |
-|---|---|---|
-| BLEU | 0–1 | N-gram overlap with reference (requires reference answer) |
-| ROUGE-L | 0–1 | Longest common subsequence F1 |
-| Semantic Similarity | 0–1 | Cosine similarity via sentence-transformers |
-| Coherence | 0–1 | Heuristic: sentence structure, transitions, uniqueness |
-| Faithfulness | 0–1 | LLM judge: addresses the task without hallucination |
-| Completeness | 0–1 | LLM judge: covers all aspects |
-| Clarity | 0–1 | LLM judge: clear and well-structured |
-| Usefulness | 0–1 | LLM judge: genuinely helpful |
-| **Composite** | 0–100 | Weighted combination of all above |
+```
+llm-eval-pro/
+├── ui/
+│   ├── app.py
+│   └── pages/
+├── src/
+│   ├── evaluator/
+│   ├── prompt_manager/
+│   └── models/
+├── sample_data/
+├── data/
+└── requirements.txt
+```
+
+---
+
+## 📈 Visualizations
+
+- Radar charts
+- Scatter plots
+- Heatmaps
+- Box plots
+- Score distributions
+- Batch comparisons
+
+---
+
+## 🧪 Typical Workflow
+
+1. Upload prompt CSV  
+2. Select model  
+3. Configure concurrency  
+4. Run evaluation  
+5. Analyze metrics  
+6. Compare batches  
+7. Export results  
+
+---
+
+## 🛠️ Tech Stack
+
+- Python
+- Streamlit
+- Ollama
+- Sentence Transformers
+- Plotly
+- SQLite
+- Pandas
+- NumPy
+- Scikit-learn
+
+---
+
+## 🎯 Use Cases
+
+- Prompt engineering optimization  
+- LLM benchmarking  
+- Research experimentation  
+- A/B prompt testing  
+- Model comparison  
+- Evaluation dashboards  
+
+---
+
+## 📄 License
+MIT License
+
+---
+
+## 👩‍💻 Author
+
+**Vaishnavi Deshpande**

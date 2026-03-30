@@ -1,0 +1,21 @@
+name,text,tags
+Simple Direct,Explain gradient descent in one paragraph.,beginner
+Expert Tone,"You are a machine learning expert. Explain gradient descent clearly and concisely.",expert
+Step by Step,"Explain gradient descent step by step, numbering each step.",structured
+Analogy First,Use a simple real-world analogy to explain gradient descent to a complete beginner.,analogy
+ELI5,Explain gradient descent like I am five years old.,simple
+Formal Academic,"Provide a formal academic explanation of gradient descent, including its mathematical formulation.",academic
+Bullet Points,Explain gradient descent using only bullet points. Be concise.,bullets
+Socratic,Use the Socratic method to explain gradient descent by posing and answering questions.,socratic
+With Example,"Explain gradient descent and provide a concrete numerical example with a simple function.",example
+Visual Description,"Describe gradient descent as if you were drawing it on a whiteboard, using spatial language.",visual
+Short Tweet,Explain gradient descent in 280 characters or fewer.,brief
+Deep Dive,"Provide an in-depth explanation of gradient descent covering variants like SGD, mini-batch, and adaptive methods.",advanced
+For Kids,Explain gradient descent to a 10-year-old using a fun story or game analogy.,kids
+For a Manager,Explain gradient descent to a non-technical project manager in business terms.,business
+Error Minimization Framing,Frame gradient descent as a strategy for minimizing errors and explain why it works.,framing
+Mountain Metaphor,"Use the metaphor of descending a mountain in fog to explain gradient descent. Extend the metaphor as far as possible.",metaphor
+Compare to Newton,Compare gradient descent with Newton's method. Highlight when each is preferred.,comparison
+Historical Context,Explain gradient descent with a brief history of who developed it and why it matters.,history
+Pseudocode,Explain gradient descent and include pseudocode for the basic algorithm.,code
+Pros and Cons,List the pros and cons of gradient descent as an optimization algorithm.,balanced

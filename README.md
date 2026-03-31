@@ -41,22 +41,23 @@ This project enables systematic evaluation of prompt variants by sending them to
 
 ## Architecture
 
-```
 User Prompts (CSV / Manual Input)
             │
             ▼
-   Batch Evaluation Pipeline
-            │
-            ├── LLM Response Generation
-            ├── Metric Computation
-            ├── LLM Judge Scoring
-            └── Composite Score
+   ┌─────────────────────────┐
+   │  Batch Evaluation Pipeline │
+   │                         │
+   │  ├─ LLM Response Gen    │  ← Ollama (llama3 / any local model)
+   │  ├─ Metric Computation  │  ← BLEU, ROUGE-L, Semantic Similarity
+   │  ├─ LLM Judge Scoring   │  ← Faithfulness, Clarity, Usefulness
+   │  └─ Composite Score     │  ← Weighted aggregate [0–100]
+   └─────────────────────────┘
             │
             ▼
-        SQLite Storage
+       SQLite Storage
             │
             ▼
-    Analytics Dashboard (Streamlit)
+   Analytics Dashboard (Streamlit)
 ```
 
 ---

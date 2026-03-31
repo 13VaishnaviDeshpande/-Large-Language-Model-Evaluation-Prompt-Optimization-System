@@ -1,5 +1,5 @@
 # LLM Evaluation & Prompt Optimization System
-
+# DOUCMENTATION OF THE PROJECT
 ## Overview
 The LLM Evaluation Tool is a comprehensive framework designed to evaluate and compare Large Language Model (LLM) outputs using deterministic metrics, LLM-based judging, and heuristic fallback scoring.
 
@@ -38,50 +38,43 @@ It provides a structured workflow for prompt experimentation, batch evaluation, 
 
 ## Installation
 
-```bash
-pip install -r requirements.txt
-```
+    pip install -r requirements.txt
 
-Start local model:
+### Start Local Model
 
-```bash
-ollama serve
-```
+    ollama serve
 
-Pull model:
+### Pull Model
 
-```bash
-ollama pull llama3
-```
+    ollama pull llama3
 
-Run application:
+### Run Application
 
-```bash
-streamlit run ui/app.py
-```
+    streamlit run ui/app.py
 
-
+---
 
 ## Architecture
 
-User Prompts (CSV / Manual Input)
+    User Prompts (CSV / Manual Input)
             │
             ▼
-   ┌─────────────────────────┐
-   │  Batch Evaluation Pipeline │
-   │                         │
-   │  ├─ LLM Response Gen    │  ← Ollama (llama3 / any local model)
-   │  ├─ Metric Computation  │  ← BLEU, ROUGE-L, Semantic Similarity
-   │  ├─ LLM Judge Scoring   │  ← Faithfulness, Clarity, Usefulness
-   │  └─ Composite Score     │  ← Weighted aggregate [0–100]
-   └─────────────────────────┘
+    ┌───────────────────────────────┐
+    │   Batch Evaluation Pipeline   │
+    │                               │
+    │   ├─ LLM Response Generation  │  ← Ollama (llama3 / local model)
+    │   ├─ Metric Computation       │  ← BLEU, ROUGE-L, Semantic Similarity
+    │   ├─ LLM Judge Scoring        │  ← Faithfulness, Clarity, Usefulness
+    │   └─ Composite Score          │  ← Weighted aggregate [0–100]
+    └───────────────────────────────┘
             │
             ▼
        SQLite Storage
             │
             ▼
-   Analytics Dashboard (Streamlit)
-```
+    Analytics Dashboard (Streamlit)
+
+---
 
 ## Workflow
 
@@ -96,10 +89,6 @@ Steps:
 - Evaluate response using metrics
 - Store results
 
-#### Screenshot
-<img width="1888" height="905" alt="Screenshot 2026-03-31 183932" src="https://github.com/user-attachments/assets/71754d4a-5085-4071-9f21-7f08fef0a7e1" />
-
-
 ---
 
 ### 2. Run Evaluation & Results
@@ -111,9 +100,6 @@ Displayed metrics include:
 - Semantic similarity
 - Latency
 - Error tracking
-
-#### Screenshot
-![Evaluation Results](./images/evaluation_results.png)
 
 ---
 
@@ -128,9 +114,6 @@ Includes:
 - Score spread
 - Failure count
 
-#### Screenshot
-![Results Overview](./images/results_overview.png)
-
 ---
 
 ### 4. Metric Radar Visualization
@@ -144,9 +127,6 @@ A radar chart comparing multiple evaluation dimensions:
 - Clarity
 - BLEU / ROUGE
 
-#### Screenshot
-![Metric Radar](./images/metric_radar.png)
-
 ---
 
 ### 5. Per-Variant Analysis
@@ -158,9 +138,6 @@ Detailed breakdown of each prompt variant:
 - LLM response
 - Judge reasoning
 - Latency and token usage
-
-#### Screenshot
-![Per Variant Analysis](./images/per_variant.png)
 
 ---
 
@@ -174,9 +151,6 @@ Batch Analysis enables evaluation of multiple prompts using CSV input or manual 
 - Source type (Manual/CSV)
 - Model used
 - Task description
-
-#### Screenshot
-![Batch Analysis](./images/batch_analysis.png)
 
 #### Score Summary
 - Best Score: 76.2
@@ -304,20 +278,6 @@ SQLite is used for persistent storage.
 - model
 - composite_score
 - total_runs
-
----
-
-## Installation
-
-    git clone <repository-url>
-    cd llm-evaluation-tool
-    pip install -r requirements.txt
-
----
-
-## Running the Application
-
-    streamlit run app.py
 
 ---
 

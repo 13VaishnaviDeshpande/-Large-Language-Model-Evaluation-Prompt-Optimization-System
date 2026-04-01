@@ -6,8 +6,6 @@ This video demonstrates the complete workflow, features, architecture, and final
 
 ---
 
-# Documentation Of The Project
-
 ## Overview
 
 The LLM Evaluation Tool is a comprehensive framework designed to evaluate and compare Large Language Model (LLM) outputs using deterministic metrics, LLM-based judging, and heuristic fallback scoring.
